@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  dict-area-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dict-area-service
+    ports:
+      - "50051:50051"
+    environment:
+      # 💡 完美接入局域网 Ubuntu 上的专业 PG 数据库
+      - DB_DSN=host=192.168.1.60 user=postgres password=cs1@gis dbname=forestry port=5432 sslmode=disable TimeZone=Asia/Shanghai
+    restart: always
