@@ -3,10 +3,13 @@ package service
 import (
 	"context"
 	"errors"
+	"log"
 
-	"github.com/rocwg/dict-area-service/internal/model"
-	pb "github.com/rocwg/grpc-contracts/gen/go/dictarea/v1"
+	"google.golang.org/grpc/metadata"
 	"gorm.io/gorm"
+
+	"github.com/rocwg/dict-area-provider/model"
+	pb "github.com/rocwg/grpc-contracts/gen/go/dictarea/v1"
 )
 
 type DictAreaServiceServer struct {
@@ -69,6 +72,18 @@ func (s *DictAreaServiceServer) GetAreaByParent(ctx context.Context, req *pb.Get
 		})
 	}
 
+	//
+	md, ok := metadata.FromIncomingContext(ctx)
+	if ok {
+		log.Printf(
+			"metadata user_id=%v tenant_id=%v request_id=%v trace_id=%v",
+			md.Get("x-user-id"),
+			md.Get("x-tenant-id"),
+			md.Get("x-request-id"),
+			md.Get("x-trace-id"),
+		)
+	}
+
 	return &pb.GetAreaByParentResponse{List: list}, nil
 }
 
@@ -127,6 +142,18 @@ func (s *DictAreaServiceServer) SearchArea(ctx context.Context, req *pb.SearchAr
 			AreaLevel:  item.AreaLevel,
 			MergerName: item.MergerName,
 		})
+	}
+
+	//
+	md, ok := metadata.FromIncomingContext(ctx)
+	if ok {
+		log.Printf(
+			"metadata user_id=%v tenant_id=%v request_id=%v trace_id=%v",
+			md.Get("x-user-id"),
+			md.Get("x-tenant-id"),
+			md.Get("x-request-id"),
+			md.Get("x-trace-id"),
+		)
 	}
 
 	return &pb.SearchAreaResponse{List: list}, nil

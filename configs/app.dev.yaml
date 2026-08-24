@@ -1,0 +1,13 @@
+server:
+  host: "127.0.0.1"
+  port: 8080
+
+database:
+  host: "localhost"
+  port: 5432
+  name: "app"
+  user: "app_user"
+  password: "App#2026_Local"
+
+logging:
+  level: "debug"

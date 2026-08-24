@@ -5,13 +5,13 @@ import (
 	"log"
 	"net"
 
-	"github.com/rocwg/dict-area-service/internal/service"
-	pb "github.com/rocwg/grpc-contracts/gen/go/dictarea/v1"
-
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"github.com/rocwg/dict-area-provider/service"
+	pb "github.com/rocwg/grpc-contracts/gen/go/dictarea/v1"
 )
 
 func main() {
